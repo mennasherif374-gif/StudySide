@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_side/view/home_view.dart';
+import 'package:study_side/theme/app_theme.dart';
 
 class AccountCreatedView extends StatelessWidget {
   const AccountCreatedView({super.key});
@@ -7,79 +8,53 @@ class AccountCreatedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FC),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
 
-              // No dedicated illustration asset exists in the project yet,
-              // so a simple icon is used here instead.
-              Container(
-                width: 140,
-                height: 140,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color(0xFF8FA3FF).withOpacity(0.3),
-                ),
-                child: const Icon(
-                  Icons.celebration_outlined,
-                  color: Color(0xFF6677CC),
-                  size: 70,
-                ),
+              Image.asset(
+                'assets/images/account_created_illustration.jpg',
+                width: 220,
+                fit: BoxFit.contain,
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 28),
 
               const Text(
                 'Welcome to StudySide!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 26,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color: AppColors.textDark,
                 ),
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 12),
 
               const Text(
                 "Your account has been created successfully. Let's start your focus journey together!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey,
+                  color: AppColors.textGrey,
+                  height: 1.4,
                 ),
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 36),
 
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6677CC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeView()),
-                    );
-                  },
-                  child: const Text(
-                    'Start Studying',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeView()),
+                  );
+                },
+                child: const Text('Start Studying'),
               ),
 
             ],

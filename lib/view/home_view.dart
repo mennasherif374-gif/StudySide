@@ -1,13 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:study_side/view/placeholder_view.dart';
+import 'package:study_side/theme/app_theme.dart';
+import 'package:study_side/view/study_rooms_view.dart';
+import 'package:study_side/widgets/app_bottom_nav.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
+  // Gets the user's first name only from their Firebase display name
+  String get _firstName {
+    final displayName = FirebaseAuth.instance.currentUser?.displayName;
+    if (displayName == null || displayName.trim().isEmpty) {
+      return 'there';
+    }
+    return displayName.trim().split(RegExp(r'\s+')).first;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FC),
       body: Column(
         children: [
 
@@ -15,16 +26,16 @@ class HomeView extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color(0xFF7C8CE8),
+              color: AppColors.primaryLight,
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+                bottomLeft: Radius.circular(28),
+                bottomRight: Radius.circular(28),
               ),
             ),
             child: SafeArea(
               bottom: false,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 25),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -32,14 +43,14 @@ class HomeView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
-                              Text('👋', style: TextStyle(fontSize: 20)),
-                              SizedBox(width: 6),
+                              const Text('👋', style: TextStyle(fontSize: 20)),
+                              const SizedBox(width: 6),
                               Flexible(
                                 child: Text(
-                                  'Good evening, Menna',
-                                  style: TextStyle(
+                                  'Good evening, $_firstName',
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -63,9 +74,9 @@ class HomeView extends StatelessWidget {
                       clipBehavior: Clip.none,
                       children: [
                         const Icon(
-                          Icons.notifications_none,
+                          Icons.notifications_none_rounded,
                           color: Colors.white,
-                          size: 28,
+                          size: 26,
                         ),
                         Positioned(
                           right: 0,
@@ -74,7 +85,7 @@ class HomeView extends StatelessWidget {
                             width: 8,
                             height: 8,
                             decoration: const BoxDecoration(
-                              color: Colors.red,
+                              color: AppColors.error,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -89,464 +100,293 @@ class HomeView extends StatelessWidget {
 
           // Body
           Expanded(
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Color(0xFFF7F8FC),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-              ),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
-                    // Start studying card
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.15),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          const Row(
-                            children: [
-                              Icon(Icons.headset, color: Colors.black87),
-                              SizedBox(width: 10),
-                              Text(
-                                'Start studying',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Join a room and foucs',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF6677CC),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              onPressed: () {},
-                              child: const Text(
-                                'Start Session',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                  // Start studying card
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(18),
+                      boxShadow: cardShadow,
                     ),
-
-                    const SizedBox(height: 20),
-
-                    const Text(
-                      'Your Progress',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // Progress cards
-                    Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.15),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
+                        const Row(
+                          children: [
+                            Icon(Icons.headset_rounded, color: AppColors.primary),
+                            SizedBox(width: 10),
+                            Text(
+                              'Start studying',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textDark,
+                              ),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Row(
-                                  children: [
-                                    Text('🔥', style: TextStyle(fontSize: 16)),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: Text(
-                                        'Current Streak',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                const Text(
-                                  '5 Days',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
-                        const SizedBox(width: 15),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.15),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Row(
-                                  children: [
-                                    Icon(Icons.timer_outlined, color: Colors.grey, size: 16),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: Text(
-                                        'Focus Time',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                const Text(
-                                  '3h 40m This Week',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    const Text(
-                      'Recomended Rooms',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 6),
-
-                    Row(
-                      children: const [
-                        Text(
-                          'See all',
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Join a room and focus',
                           style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey,
+                            fontSize: 14,
+                            color: AppColors.textGrey,
                           ),
                         ),
-                        Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+                        const SizedBox(height: 18),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Start Session'),
+                          ),
+                        ),
                       ],
                     ),
+                  ),
 
-                    const SizedBox(height: 15),
+                  const SizedBox(height: 24),
 
-                    // Room card 1
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.15),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
+                  const Text(
+                    'Your Progress',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textDark,
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // Progress cards
+                  const Row(
+                    children: [
+                      Expanded(
+                        child: _StatCard(
+                          emoji: '🔥',
+                          label: 'Current Streak',
+                          value: '5 Days',
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            children: [
-                              Icon(Icons.layers, color: Colors.redAccent),
-                              SizedBox(width: 10),
-                              Text(
-                                'Data Structures',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              const Icon(Icons.groups, color: Color(0xFF8C6DE0), size: 18),
-                              const SizedBox(width: 6),
-                              const Text(
-                                '6  Studying',
-                                style: TextStyle(fontSize: 13, color: Colors.black87),
-                              ),
-                              const SizedBox(width: 20),
-                              const Text('🔥', style: TextStyle(fontSize: 14)),
-                              const SizedBox(width: 6),
-                              const Text(
-                                'High',
-                                style: TextStyle(fontSize: 13, color: Colors.black87),
-                              ),
-                              const Spacer(),
-                            ],
-                          ),
-                          const SizedBox(height: 6),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Join',
-                                style: TextStyle(
-                                  color: Color(0xFF6677CC),
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      SizedBox(width: 15),
+                      Expanded(
+                        child: _StatCard(
+                          icon: Icons.timer_outlined,
+                          label: 'Focus Time',
+                          value: '3h 40m This Week',
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Recommended Rooms',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textDark,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const StudyRoomsView(),
+                            ),
+                          );
+                        },
+                        child: const Row(
+                          children: [
+                            Text(
+                              'See all',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: AppColors.textGrey,
                               ),
                             ),
-                          ),
-                        ],
+                            Icon(Icons.chevron_right, color: AppColors.textGrey, size: 18),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
 
-                    const SizedBox(height: 15),
+                  const SizedBox(height: 14),
 
-                    // Room card 2
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.15),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            children: [
-                              Icon(Icons.layers, color: Colors.blueAccent),
-                              SizedBox(width: 10),
-                              Text(
-                                'Flutter',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              const Icon(Icons.groups, color: Color(0xFF8C6DE0), size: 18),
-                              const SizedBox(width: 6),
-                              const Text(
-                                '4  Studying',
-                                style: TextStyle(fontSize: 13, color: Colors.black87),
-                              ),
-                              const SizedBox(width: 20),
-                              Container(
-                                width: 10,
-                                height: 10,
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              const Text(
-                                'Good',
-                                style: TextStyle(fontSize: 13, color: Colors.black87),
-                              ),
-                              const Spacer(),
-                            ],
-                          ),
-                          const SizedBox(height: 6),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Join',
-                                style: TextStyle(
-                                  color: Color(0xFF6677CC),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  const _RoomPreviewCard(
+                    name: 'Data Structures',
+                    iconColor: Colors.redAccent,
+                    studyingCount: 6,
+                    status: 'High',
+                    statusColor: AppColors.warning,
+                  ),
 
-                  ],
-                ),
+                  const SizedBox(height: 14),
+
+                  const _RoomPreviewCard(
+                    name: 'Flutter',
+                    iconColor: Colors.blueAccent,
+                    studyingCount: 4,
+                    status: 'Good',
+                    statusColor: AppColors.success,
+                  ),
+
+                ],
               ),
             ),
           ),
 
-          // Bottom navigation bar
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                top: BorderSide(color: Colors.grey.withOpacity(0.2)),
-              ),
-            ),
-            child: SafeArea(
-              top: false,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Column(
-                        children: [
-                          Icon(Icons.home, color: Color(0xFF6677CC)),
-                          SizedBox(height: 4),
-                          Text(
-                            'Home',
-                            style: TextStyle(fontSize: 12, color: Color(0xFF6677CC)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PlaceholderView(title: 'Room'),
-                          ),
-                        );
-                      },
-                      child: const Column(
-                        children: [
-                          Icon(Icons.headset, color: Colors.grey),
-                          SizedBox(height: 4),
-                          Text(
-                            'Room',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PlaceholderView(title: 'Progress'),
-                          ),
-                        );
-                      },
-                      child: const Column(
-                        children: [
-                          Icon(Icons.bar_chart, color: Colors.grey),
-                          SizedBox(height: 4),
-                          Text(
-                            'Progress',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PlaceholderView(title: 'Profile'),
-                          ),
-                        );
-                      },
-                      child: const Column(
-                        children: [
-                          Icon(Icons.person, color: Colors.grey),
-                          SizedBox(height: 4),
-                          Text(
-                            'Profile',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+          const AppBottomNav(currentIndex: 0),
+
+        ],
+      ),
+    );
+  }
+}
+
+// One of the two small stat cards under "Your Progress".
+class _StatCard extends StatelessWidget {
+  final String? emoji;
+  final IconData? icon;
+  final String label;
+  final String value;
+
+  const _StatCard({
+    this.emoji,
+    this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: cardShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              if (emoji != null) Text(emoji!, style: const TextStyle(fontSize: 15)),
+              if (icon != null) Icon(icon, color: AppColors.textGrey, size: 16),
+              const SizedBox(width: 6),
+              Flexible(
+                child: Text(
+                  label,
+                  style: const TextStyle(fontSize: 13, color: AppColors.textGrey),
                 ),
               ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textDark,
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
 
+// One room card shown in the "Recommended Rooms" preview on the Home screen.
+class _RoomPreviewCard extends StatelessWidget {
+  final String name;
+  final Color iconColor;
+  final int studyingCount;
+  final String status;
+  final Color statusColor;
+
+  const _RoomPreviewCard({
+    required this.name,
+    required this.iconColor,
+    required this.studyingCount,
+    required this.status,
+    required this.statusColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: cardShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.layers_rounded, color: iconColor),
+              const SizedBox(width: 10),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textDark,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              const Icon(Icons.groups_rounded, color: Color(0xFF8C6DE0), size: 18),
+              const SizedBox(width: 6),
+              Text(
+                '$studyingCount  Studying',
+                style: const TextStyle(fontSize: 13, color: AppColors.textDark),
+              ),
+              const SizedBox(width: 20),
+              status == 'High'
+                  ? const Text('🔥', style: TextStyle(fontSize: 14))
+                  : Container(
+                      width: 10,
+                      height: 10,
+                      decoration: BoxDecoration(color: statusColor, shape: BoxShape.circle),
+                    ),
+              const SizedBox(width: 6),
+              Text(
+                status,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: status == 'High' ? AppColors.warning : AppColors.textDark,
+                ),
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                child: const Text('Join'),
+              ),
+            ],
+          ),
         ],
       ),
     );

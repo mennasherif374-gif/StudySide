@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_side/view/welcome_view.dart';
+import 'package:study_side/theme/app_theme.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -59,22 +60,26 @@ class _OnboardingViewState extends State<OnboardingView> {
         child: Column(
           children: [
 
-            Align(
-              alignment: Alignment.topRight,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WelcomeView(),
+            Padding(
+              padding: const EdgeInsets.only(top: 8, right: 8),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WelcomeView(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(
+                      color: AppColors.textGrey,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
-                  );
-                },
-                child: const Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
                   ),
                 ),
               ),
@@ -94,7 +99,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
 
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -103,30 +108,32 @@ class _OnboardingViewState extends State<OnboardingView> {
 
                         Image.asset(
                           pages[index]['image']!,
-                          height: 250,
+                          height: 240,
                         ),
 
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 36),
 
                         Text(
                           pages[index]['title']!,
                           textAlign: TextAlign.center,
 
                           style: const TextStyle(
-                            fontSize: 28,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
+                            color: AppColors.textDark,
                           ),
                         ),
 
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 12),
 
                         Text(
                           pages[index]['description']!,
                           textAlign: TextAlign.center,
 
                           style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
+                            fontSize: 15,
+                            color: AppColors.textGrey,
+                            height: 1.4,
                           ),
                         ),
                       ],
@@ -142,16 +149,17 @@ class _OnboardingViewState extends State<OnboardingView> {
               children: List.generate(
                 pages.length,
                     (index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
 
-                    width: currentPage == index ? 25 : 8,
+                    width: currentPage == index ? 24 : 8,
                     height: 8,
 
                     decoration: BoxDecoration(
                       color: currentPage == index
-                          ? Color(0xFF6677CC)
-                          : Colors.grey.shade300,
+                          ? AppColors.primary
+                          : AppColors.border,
 
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -166,27 +174,11 @@ class _OnboardingViewState extends State<OnboardingView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: SizedBox(
-                width: 200,
-                height: 55,
-
+                width: double.infinity,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF6677CC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
                   onPressed: nextPage,
-
                   child: Text(
-                    currentPage == pages.length - 1
-                        ? 'Next'
-                        : 'Next',
-                    style:
-                    TextStyle(
-                      color: Colors.white
-                    )
-                    ,
+                    currentPage == pages.length - 1 ? 'Get Started' : 'Next',
                   ),
                 ),
               ),

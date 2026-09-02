@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_side/view/check_your_email_view.dart';
 import 'package:study_side/view_model/Auth/auth_bloc.dart';
+import 'package:study_side/theme/app_theme.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -19,10 +20,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     return BlocProvider(
       create: (context) => AuthBloc(),
       child: Scaffold(
-        backgroundColor: const Color(0xFFF7F8FC),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: BlocConsumer<AuthBloc, AuthState>(
               listenWhen: (previous, current) => !previous.isSuccess && current.isSuccess,
               listener: (context, state) {
@@ -50,17 +50,21 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       icon: const Icon(Icons.arrow_back),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 12),
 
                     // Circle icon
                     Center(
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: const Color(0xFF8FA3FF).withOpacity(0.3),
+                      child: Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryLight.withOpacity(0.15),
+                          shape: BoxShape.circle,
+                        ),
                         child: const Icon(
                           Icons.mark_email_read_outlined,
-                          color: Color(0xFF6677CC),
-                          size: 36,
+                          color: AppColors.primary,
+                          size: 34,
                         ),
                       ),
                     ),
@@ -71,13 +75,14 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          color: AppColors.textDark,
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 8),
 
                     const Center(
                       child: Text(
@@ -85,89 +90,52 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey,
+                          color: AppColors.textGrey,
+                          height: 1.4,
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 32),
 
                     // Email field
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.15),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        controller: emailController,
-                        onChanged: (value) {
-                          context.read<AuthBloc>().add(AuthEmailChanged(value));
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          hintStyle: TextStyle(color: Colors.grey.shade400),
-                          prefixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 18),
-                        ),
+                    TextField(
+                      controller: emailController,
+                      onChanged: (value) {
+                        context.read<AuthBloc>().add(AuthEmailChanged(value));
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Email',
+                        prefixIcon: Icon(Icons.email_outlined),
                       ),
                     ),
 
                     if (state.errorMessage.isNotEmpty) ...[
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 12),
                       Text(
                         state.errorMessage,
-                        style: const TextStyle(color: Colors.red, fontSize: 13),
+                        style: const TextStyle(color: AppColors.error, fontSize: 13),
                       ),
                     ],
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 24),
 
-                    SizedBox(
-                      width: double.infinity,
-                      height: 55,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF6677CC),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        onPressed: state.isLoading
-                            ? null
-                            : () {
-                                context.read<AuthBloc>().add(AuthForgotPasswordSubmitted());
-                              },
-                        child: state.isLoading
-                            ? const SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : const Text(
-                                'Send Reset Link',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                    ElevatedButton(
+                      onPressed: state.isLoading
+                          ? null
+                          : () {
+                              context.read<AuthBloc>().add(AuthForgotPasswordSubmitted());
+                            },
+                      child: state.isLoading
+                          ? const SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
                               ),
-                      ),
+                            )
+                          : const Text('Send Reset Link'),
                     ),
 
                   ],

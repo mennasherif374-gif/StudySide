@@ -228,6 +228,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await firebaseAuthService.signUp(
           email: state.email,
           password: state.password,
+          displayName: state.fullName,
         );
 
         emit(AuthState(
@@ -243,9 +244,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ));
 
       } on FirebaseAuthException catch (e) {
-        print(e.code);
 
-        String message = 'DEBUG CODE: ${e.code}';
+        String message = 'Something went wrong. Please try again';
 
         if (e.code == 'email-already-in-use') {
           message = 'This email is already in use';

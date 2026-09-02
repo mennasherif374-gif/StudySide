@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_side/view/login_view.dart';
 import 'package:study_side/view/signup_view.dart';
+import 'package:study_side/theme/app_theme.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({super.key});
@@ -8,109 +9,123 @@ class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF8FA3FF),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [AppColors.primaryLight, AppColors.primary],
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              children: [
 
-              const Spacer(flex: 3),
+                const Spacer(flex: 3),
 
-              Image.asset(
-                "assets/images/WhatsApp Image 2026-08-28 at 6.07.44 PM.png",
-                width: 150,
-                height: 150,
-                fit: BoxFit.contain,
-              ),
-
-              const SizedBox(height: 20),
-
-              const Text(
-                'StudySide',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                Container(
+                  width: 130,
+                  height: 130,
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  child: Image.asset(
+                    "assets/images/WhatsApp Image 2026-08-28 at 6.07.44 PM.png",
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 10),
+                const SizedBox(height: 24),
 
-              const Text(
-                'Study together. Focus better.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
+                const Text(
+                  'StudySide',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
 
-              const Spacer(flex: 4),
+                const SizedBox(height: 10),
 
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6677CC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                const Text(
+                  'Study together. Focus better.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white70,
+                  ),
+                ),
+
+                const Spacer(flex: 4),
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: AppColors.primary,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignupView(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Get Started',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  onPressed: () {
+                ),
+
+                const SizedBox(height: 24),
+
+                GestureDetector(
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignupView(),
+                        builder: (context) => const LoginView(),
                       ),
                     );
                   },
-                  child: const Text(
-                    'Get Started',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  child: RichText(
+                    text: const TextSpan(
+                      style: TextStyle(fontSize: 14, color: Colors.white70),
+                      children: [
+                        TextSpan(text: 'Already have an account?  '),
+                        TextSpan(
+                          text: 'Login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 40),
 
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginView(),
-                    ),
-                  );
-                },
-                child: const Column(
-                  children: [
-                    Text(
-                      'Already have an account?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-            ],
+              ],
+            ),
           ),
         ),
       ),

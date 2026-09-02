@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_side/view/login_view.dart';
+import 'package:study_side/theme/app_theme.dart';
 
 class ResetPasswordSuccessView extends StatelessWidget {
   const ResetPasswordSuccessView({super.key});
@@ -7,10 +8,9 @@ class ResetPasswordSuccessView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FC),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,21 +25,21 @@ class ResetPasswordSuccessView extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back),
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 32),
 
               // Success icon
               Center(
                 child: Container(
-                  width: 70,
-                  height: 70,
+                  width: 72,
+                  height: 72,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6677CC),
-                    borderRadius: BorderRadius.circular(20),
+                    color: AppColors.success.withOpacity(0.15),
+                    shape: BoxShape.circle,
                   ),
                   child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 36,
+                    Icons.check_rounded,
+                    color: AppColors.success,
+                    size: 34,
                   ),
                 ),
               ),
@@ -50,13 +50,14 @@ class ResetPasswordSuccessView extends StatelessWidget {
                 child: Text(
                   'Password Reset',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
+                    color: AppColors.textDark,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
 
               const Center(
                 child: Text(
@@ -64,40 +65,23 @@ class ResetPasswordSuccessView extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: AppColors.textGrey,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 32),
 
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6677CC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginView(),
                     ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginView(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Back to Sign In',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                  );
+                },
+                child: const Text('Back to Sign In'),
               ),
 
             ],
