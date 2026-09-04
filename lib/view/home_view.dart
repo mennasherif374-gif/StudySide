@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:study_side/model/study_room.dart';
 import 'package:study_side/theme/app_theme.dart';
+import 'package:study_side/view/room/room_details_view.dart';
 import 'package:study_side/view/study_rooms_view.dart';
 import 'package:study_side/widgets/app_bottom_nav.dart';
+import 'package:study_side/view/room/create_room_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -144,7 +147,14 @@ class HomeView extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const CreateRoomView(),
+                                ),
+                              );
+                            },
                             child: const Text('Start Session'),
                           ),
                         ),
@@ -227,21 +237,35 @@ class HomeView extends StatelessWidget {
                   const SizedBox(height: 14),
 
                   const _RoomPreviewCard(
-                    name: 'Data Structures',
-                    iconColor: Colors.redAccent,
-                    studyingCount: 6,
-                    status: 'High',
-                    statusColor: AppColors.warning,
+                    room: StudyRoom(
+                      name: 'Data Structures',
+                      iconColor: Colors.redAccent,
+                      studyingCount: 6,
+                      maxCapacity: 8,
+                      status: 'High',
+                      statusColor: AppColors.warning,
+                      category: 'CS',
+                      description: 'Focus on Data Structures and solve problems together.',
+                      createdBy: 'Sara',
+                      createdAgo: '2 hours ago',
+                    ),
                   ),
 
                   const SizedBox(height: 14),
 
                   const _RoomPreviewCard(
-                    name: 'Flutter',
-                    iconColor: Colors.blueAccent,
-                    studyingCount: 4,
-                    status: 'Good',
-                    statusColor: AppColors.success,
+                    room: StudyRoom(
+                      name: 'Flutter',
+                      iconColor: Colors.blueAccent,
+                      studyingCount: 4,
+                      maxCapacity: 8,
+                      status: 'Good',
+                      statusColor: AppColors.success,
+                      category: 'Programming',
+                      description: 'Learn Flutter and build apps together.',
+                      createdBy: 'Ahmed',
+                      createdAgo: '1 hour ago',
+                    ),
                   ),
 
                 ],
@@ -313,18 +337,11 @@ class _StatCard extends StatelessWidget {
 
 // One room card shown in the "Recommended Rooms" preview on the Home screen.
 class _RoomPreviewCard extends StatelessWidget {
-  final String name;
-  final Color iconColor;
-  final int studyingCount;
-  final String status;
-  final Color statusColor;
+  final StudyRoom room;
 
   const _RoomPreviewCard({
-    required this.name,
-    required this.iconColor,
-    required this.studyingCount,
-    required this.status,
-    required this.statusColor,
+    super.key,
+    required this.room,
   });
 
   @override
@@ -342,10 +359,10 @@ class _RoomPreviewCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.layers_rounded, color: iconColor),
+              Icon(Icons.layers_rounded, color: room.iconColor),
               const SizedBox(width: 10),
               Text(
-                name,
+                room.name,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -359,30 +376,41 @@ class _RoomPreviewCard extends StatelessWidget {
             children: [
               const Icon(Icons.groups_rounded, color: Color(0xFF8C6DE0), size: 18),
               const SizedBox(width: 6),
-              Text(
-                '$studyingCount  Studying',
+
+              Text('${room.studyingCount} studying',
                 style: const TextStyle(fontSize: 13, color: AppColors.textDark),
               ),
               const SizedBox(width: 20),
-              status == 'High'
+              room.status == 'High'
                   ? const Text('🔥', style: TextStyle(fontSize: 14))
                   : Container(
                       width: 10,
                       height: 10,
-                      decoration: BoxDecoration(color: statusColor, shape: BoxShape.circle),
+                      decoration: BoxDecoration(color: room.statusColor, shape: BoxShape.circle),
                     ),
               const SizedBox(width: 6),
               Text(
-                status,
+                room.status,
                 style: TextStyle(
                   fontSize: 13,
-                  color: status == 'High' ? AppColors.warning : AppColors.textDark,
+                  color: room.status == 'High' ? AppColors.warning : AppColors.textDark,
                 ),
               ),
               const Spacer(),
               TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => RoomDetailsView(
+                        room: room,
+                      ),
+                    ),
+                  );
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                ),
                 child: const Text('Join'),
               ),
             ],
