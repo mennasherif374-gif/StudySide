@@ -66,12 +66,10 @@ class _CreateRoomViewState extends State<CreateRoomView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
         centerTitle: true,
-
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
@@ -82,7 +80,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
             Navigator.pop(context);
           },
         ),
-
         title: const Text(
           'Create Session',
           style: TextStyle(
@@ -92,32 +89,21 @@ class _CreateRoomViewState extends State<CreateRoomView> {
           ),
         ),
       ),
-
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-
           padding: const EdgeInsets.fromLTRB(
             12,
             4,
             12,
             24,
           ),
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ==================================================
-              // TOP BANNER
-              // ==================================================
-
               _buildBanner(),
 
               const SizedBox(height: 13),
-
-              // ==================================================
-              // ROOM NAME
-              // ==================================================
 
               _buildInputCard(
                 icon: Icons.groups_rounded,
@@ -128,17 +114,9 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
               const SizedBox(height: 11),
 
-              // ==================================================
-              // CATEGORY
-              // ==================================================
-
               _buildCategoryCard(),
 
               const SizedBox(height: 11),
-
-              // ==================================================
-              // GOAL
-              // ==================================================
 
               _buildInputCard(
                 icon: Icons.track_changes_rounded,
@@ -149,10 +127,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
               const SizedBox(height: 14),
 
-              // ==================================================
-              // SESSION DURATION
-              // ==================================================
-
               _buildSectionLabel('Session Duration'),
 
               const SizedBox(height: 8),
@@ -160,10 +134,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
               _buildDurationSelector(),
 
               const SizedBox(height: 14),
-
-              // ==================================================
-              // MAX PARTICIPANTS
-              // ==================================================
 
               _buildSectionLabel('Maximum Participants'),
 
@@ -173,47 +143,31 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
               const SizedBox(height: 14),
 
-              // ==================================================
-              // ROOM VISIBILITY
-              // ==================================================
-
               _buildVisibilityCard(),
 
               const SizedBox(height: 18),
 
-              // ==================================================
-              // CREATE ROOM BUTTON
-              // ==================================================
-
               SizedBox(
                 width: double.infinity,
                 height: 54,
-
                 child: ElevatedButton(
                   onPressed: _createRoom,
-
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
                     elevation: 0,
-
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13),
                     ),
                   ),
-
                   child: const Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.center,
-
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.add_circle_outline_rounded,
                         size: 21,
                       ),
-
                       SizedBox(width: 8),
-
                       Text(
                         'Create Room',
                         style: TextStyle(
@@ -240,7 +194,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
     return Container(
       width: double.infinity,
       height: 82,
-
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -250,9 +203,7 @@ class _CreateRoomViewState extends State<CreateRoomView> {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-
         borderRadius: BorderRadius.circular(16),
-
         boxShadow: [
           BoxShadow(
             color: AppColors.primary.withOpacity(0.18),
@@ -261,14 +212,11 @@ class _CreateRoomViewState extends State<CreateRoomView> {
           ),
         ],
       ),
-
       child: Stack(
         children: [
-          // Decorative stars
           const Positioned(
             right: 75,
             top: 8,
-
             child: Text(
               '✨',
               style: TextStyle(
@@ -280,7 +228,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
           const Positioned(
             right: 48,
             top: 31,
-
             child: Text(
               '✦',
               style: TextStyle(
@@ -290,21 +237,16 @@ class _CreateRoomViewState extends State<CreateRoomView> {
             ),
           ),
 
-          // Text
           Padding(
             padding: const EdgeInsets.only(
               left: 20,
               top: 13,
             ),
-
             child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
-
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'Create a Study Room',
-
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15,
@@ -316,7 +258,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
                 const Text(
                   'Study together and\nachieve your goals.',
-
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: 12,
@@ -327,26 +268,18 @@ class _CreateRoomViewState extends State<CreateRoomView> {
             ),
           ),
 
-          // Illustration
           Positioned(
             right: 9,
             bottom: 5,
-
             child: Container(
               width: 65,
               height: 65,
-
               decoration: BoxDecoration(
-                color:
-                Colors.white.withOpacity(0.16),
-
-                borderRadius:
-                BorderRadius.circular(19),
+                color: Colors.white.withOpacity(0.16),
+                borderRadius: BorderRadius.circular(19),
               ),
-
               child: const Stack(
                 alignment: Alignment.center,
-
                 children: [
                   Icon(
                     Icons.laptop_mac_rounded,
@@ -357,7 +290,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
                   Positioned(
                     top: 5,
                     right: 10,
-
                     child: Icon(
                       Icons.person_rounded,
                       color: Colors.white,
@@ -386,33 +318,24 @@ class _CreateRoomViewState extends State<CreateRoomView> {
     return Container(
       width: double.infinity,
       height: 70,
-
       padding: const EdgeInsets.symmetric(
         horizontal: 13,
         vertical: 9,
       ),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         boxShadow: cardShadow,
       ),
-
       child: Row(
         children: [
-          // Icon
           Container(
             width: 34,
             height: 34,
-
             decoration: BoxDecoration(
-              color:
-              AppColors.primary.withOpacity(0.08),
-
-              borderRadius:
-              BorderRadius.circular(10),
+              color: AppColors.primary.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(10),
             ),
-
             child: Icon(
               icon,
               color: AppColors.primary,
@@ -422,16 +345,12 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
           const SizedBox(width: 10),
 
-          // Text field
           Expanded(
             child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
-
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   label,
-
                   style: const TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
@@ -444,28 +363,18 @@ class _CreateRoomViewState extends State<CreateRoomView> {
                 Expanded(
                   child: TextField(
                     controller: controller,
-
                     style: const TextStyle(
                       fontSize: 12,
                       color: AppColors.textDark,
                     ),
-
-                    decoration:
-                    InputDecoration(
+                    decoration: InputDecoration(
                       hintText: hint,
-
-                      hintStyle:
-                      const TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: 11,
-                        color:
-                        AppColors.textGrey,
+                        color: AppColors.textGrey,
                       ),
-
-                      border:
-                      InputBorder.none,
-
-                      contentPadding:
-                      EdgeInsets.zero,
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.zero,
                     ),
                   ),
                 ),
@@ -485,31 +394,23 @@ class _CreateRoomViewState extends State<CreateRoomView> {
     return Container(
       width: double.infinity,
       height: 70,
-
       padding: const EdgeInsets.symmetric(
         horizontal: 13,
       ),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         boxShadow: cardShadow,
       ),
-
       child: Row(
         children: [
           Container(
             width: 34,
             height: 34,
-
             decoration: BoxDecoration(
-              color:
-              AppColors.primary.withOpacity(0.08),
-
-              borderRadius:
-              BorderRadius.circular(10),
+              color: AppColors.primary.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(10),
             ),
-
             child: const Icon(
               Icons.grid_view_rounded,
               color: AppColors.primary,
@@ -521,16 +422,11 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
           Expanded(
             child: Column(
-              mainAxisAlignment:
-              MainAxisAlignment.center,
-
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
-
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'Category',
-
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
@@ -542,7 +438,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
                 Text(
                   selectedCategory,
-
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -553,29 +448,24 @@ class _CreateRoomViewState extends State<CreateRoomView> {
             ),
           ),
 
-          // Dropdown
           PopupMenuButton<String>(
             icon: const Icon(
               Icons.keyboard_arrow_down_rounded,
               size: 23,
               color: AppColors.textDark,
             ),
-
             onSelected: (value) {
               setState(() {
                 selectedCategory = value;
               });
             },
-
             itemBuilder: (context) {
               return categories.map(
                     (category) {
                   return PopupMenuItem<String>(
                     value: category,
-
                     child: Text(
                       category,
-
                       style: const TextStyle(
                         fontSize: 14,
                       ),
@@ -597,7 +487,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
   Widget _buildSectionLabel(String title) {
     return Text(
       title,
-
       style: const TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w700,
@@ -613,14 +502,12 @@ class _CreateRoomViewState extends State<CreateRoomView> {
   Widget _buildDurationSelector() {
     return Row(
       children: [
-        // 25
         Expanded(
           child: _DurationButton(
             title: '25',
             selected:
             selectedDuration == 25 &&
                 customDuration == null,
-
             onTap: () {
               setState(() {
                 selectedDuration = 25;
@@ -632,14 +519,12 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
         const SizedBox(width: 7),
 
-        // 45
         Expanded(
           child: _DurationButton(
             title: '45',
             selected:
             selectedDuration == 45 &&
                 customDuration == null,
-
             onTap: () {
               setState(() {
                 selectedDuration = 45;
@@ -651,14 +536,12 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
         const SizedBox(width: 7),
 
-        // 60
         Expanded(
           child: _DurationButton(
             title: '60',
             selected:
             selectedDuration == 60 &&
                 customDuration == null,
-
             onTap: () {
               setState(() {
                 selectedDuration = 60;
@@ -670,14 +553,12 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
         const SizedBox(width: 7),
 
-        // 90
         Expanded(
           child: _DurationButton(
             title: '90',
             selected:
             selectedDuration == 90 &&
                 customDuration == null,
-
             onTap: () {
               setState(() {
                 selectedDuration = 90;
@@ -689,43 +570,32 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
         const SizedBox(width: 7),
 
-        // CUSTOM
         Expanded(
           child: GestureDetector(
             onTap: _showCustomDurationDialog,
-
             child: Container(
               height: 52,
-
               decoration: BoxDecoration(
                 color: customDuration != null
                     ? AppColors.primary
                     : Colors.white,
-
-                borderRadius:
-                BorderRadius.circular(12),
-
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: customDuration != null
                       ? AppColors.primary
                       : AppColors.border,
                 ),
               ),
-
               child: Column(
-                mainAxisAlignment:
-                MainAxisAlignment.center,
-
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     customDuration != null
                         ? '$customDuration'
                         : 'Custom',
-
                     style: TextStyle(
                       fontSize: 11.5,
                       fontWeight: FontWeight.w700,
-
                       color: customDuration != null
                           ? Colors.white
                           : AppColors.textDark,
@@ -736,10 +606,8 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
                   Text(
                     'min',
-
                     style: TextStyle(
                       fontSize: 11,
-
                       color: customDuration != null
                           ? Colors.white70
                           : AppColors.textGrey,
@@ -766,75 +634,52 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
     showDialog(
       context: context,
-
       builder: (dialogContext) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-
           title: const Text(
             'Custom Duration',
-
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: AppColors.textDark,
             ),
           ),
-
           content: TextField(
             controller: controller,
-
-            keyboardType:
-            TextInputType.number,
-
+            keyboardType: TextInputType.number,
             autofocus: true,
-
             decoration: InputDecoration(
               hintText: 'Enter minutes',
-
               suffixText: 'min',
-
               border: OutlineInputBorder(
-                borderRadius:
-                BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
           ),
-
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(
-                  dialogContext,
-                );
+                Navigator.pop(dialogContext);
               },
-
-              child: const Text(
-                'Cancel',
-              ),
+              child: const Text('Cancel'),
             ),
 
             ElevatedButton(
               onPressed: () {
                 final int? value =
-                int.tryParse(
-                  controller.text.trim(),
-                );
+                int.tryParse(controller.text.trim());
 
-                if (value == null ||
-                    value <= 0) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(
+                if (value == null || value <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(
                         'Please enter a valid duration.',
                       ),
                     ),
                   );
-
                   return;
                 }
 
@@ -843,14 +688,9 @@ class _CreateRoomViewState extends State<CreateRoomView> {
                   selectedDuration = value;
                 });
 
-                Navigator.pop(
-                  dialogContext,
-                );
+                Navigator.pop(dialogContext);
               },
-
-              child: const Text(
-                'Done',
-              ),
+              child: const Text('Done'),
             ),
           ],
         );
@@ -868,31 +708,23 @@ class _CreateRoomViewState extends State<CreateRoomView> {
     return Container(
       width: double.infinity,
       height: 62,
-
       padding: const EdgeInsets.symmetric(
         horizontal: 13,
       ),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         boxShadow: cardShadow,
       ),
-
       child: Row(
         children: [
           Container(
             width: 34,
             height: 34,
-
             decoration: BoxDecoration(
-              color:
-              AppColors.primary.withOpacity(0.08),
-
-              borderRadius:
-              BorderRadius.circular(10),
+              color: AppColors.primary.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(10),
             ),
-
             child: const Icon(
               Icons.groups_rounded,
               color: AppColors.primary,
@@ -902,7 +734,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
           const Spacer(),
 
-          // MINUS
           GestureDetector(
             onTap: () {
               if (maxParticipants > 2) {
@@ -911,17 +742,13 @@ class _CreateRoomViewState extends State<CreateRoomView> {
                 });
               }
             },
-
             child: Container(
               width: 24,
               height: 24,
-
-              decoration:
-              const BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFFF0F1FA),
                 shape: BoxShape.circle,
               ),
-
               child: const Icon(
                 Icons.remove_rounded,
                 size: 16,
@@ -934,7 +761,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
           Text(
             '$maxParticipants',
-
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
@@ -944,7 +770,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
           const SizedBox(width: 18),
 
-          // PLUS
           GestureDetector(
             onTap: () {
               if (maxParticipants < 20) {
@@ -953,17 +778,13 @@ class _CreateRoomViewState extends State<CreateRoomView> {
                 });
               }
             },
-
             child: Container(
               width: 24,
               height: 24,
-
-              decoration:
-              const BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.primary,
                 shape: BoxShape.circle,
               ),
-
               child: const Icon(
                 Icons.add_rounded,
                 size: 16,
@@ -984,31 +805,23 @@ class _CreateRoomViewState extends State<CreateRoomView> {
     return Container(
       width: double.infinity,
       height: 68,
-
       padding: const EdgeInsets.symmetric(
         horizontal: 13,
       ),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         boxShadow: cardShadow,
       ),
-
       child: Row(
         children: [
           Container(
             width: 34,
             height: 34,
-
             decoration: BoxDecoration(
-              color:
-              AppColors.primary.withOpacity(0.08),
-
-              borderRadius:
-              BorderRadius.circular(10),
+              color: AppColors.primary.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(10),
             ),
-
             child: const Icon(
               Icons.public_rounded,
               color: AppColors.primary,
@@ -1020,16 +833,11 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
           const Expanded(
             child: Column(
-              mainAxisAlignment:
-              MainAxisAlignment.center,
-
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
-
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Room Visibility',
-
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -1041,7 +849,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
                 Text(
                   'Anyone can join this room',
-
                   style: TextStyle(
                     fontSize: 11,
                     color: AppColors.textGrey,
@@ -1053,18 +860,10 @@ class _CreateRoomViewState extends State<CreateRoomView> {
 
           Switch(
             value: roomIsPublic,
-
             activeColor: Colors.white,
-
-            activeTrackColor:
-            AppColors.primary,
-
-            inactiveThumbColor:
-            Colors.white,
-
-            inactiveTrackColor:
-            Color(0xFFD5D7E3),
-
+            activeTrackColor: AppColors.primary,
+            inactiveThumbColor: Colors.white,
+            inactiveTrackColor: Color(0xFFD5D7E3),
             onChanged: (value) {
               setState(() {
                 roomIsPublic = value;
@@ -1087,7 +886,6 @@ class _CreateRoomViewState extends State<CreateRoomView> {
     final String goal =
     goalController.text.trim();
 
-    // Validation
     if (roomName.isEmpty) {
       _showMessage(
         'Please enter a room name.',
@@ -1102,8 +900,7 @@ class _CreateRoomViewState extends State<CreateRoomView> {
       return;
     }
 
-    final int duration =
-        selectedDuration;
+    final int duration = selectedDuration;
 
     Navigator.pushReplacement(
       context,
@@ -1135,9 +932,7 @@ class _CreateRoomViewState extends State<CreateRoomView> {
               fontSize: 13,
             ),
           ),
-
-          behavior:
-          SnackBarBehavior.floating,
+          behavior: SnackBarBehavior.floating,
         ),
       );
   }
@@ -1162,37 +957,27 @@ class _DurationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-
       child: Container(
         height: 52,
-
         decoration: BoxDecoration(
           color: selected
               ? AppColors.primary
               : Colors.white,
-
-          borderRadius:
-          BorderRadius.circular(12),
-
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: selected
                 ? AppColors.primary
                 : AppColors.border,
           ),
         ),
-
         child: Column(
-          mainAxisAlignment:
-          MainAxisAlignment.center,
-
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               title,
-
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
-
                 color: selected
                     ? Colors.white
                     : AppColors.textDark,
@@ -1203,10 +988,8 @@ class _DurationButton extends StatelessWidget {
 
             Text(
               'min',
-
               style: TextStyle(
                 fontSize: 11,
-
                 color: selected
                     ? Colors.white70
                     : AppColors.textGrey,

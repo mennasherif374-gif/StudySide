@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_side/theme/app_theme.dart';
+import 'package:study_side/model/chat_store.dart';
 
 class RoomChatView extends StatefulWidget {
   final String roomName;
@@ -16,6 +17,8 @@ class RoomChatView extends StatefulWidget {
 }
 
 class _RoomChatViewState extends State<RoomChatView> {
+
+
   final TextEditingController _messageController =
   TextEditingController();
 
@@ -26,7 +29,6 @@ class _RoomChatViewState extends State<RoomChatView> {
   // CHAT MESSAGES
   // ============================================================
 
-  final List<_ChatMessage> _messages = [];
 
   // ============================================================
   // QUICK REACTIONS
@@ -56,17 +58,12 @@ class _RoomChatViewState extends State<RoomChatView> {
 
     if (text.isEmpty) return;
 
-    setState(() {
-      _messages.add(
-        _ChatMessage(
-          sender: 'You',
-          time: _currentTime(),
-          message: text,
-          avatarColor: const Color(0xFFB7D1F5),
-          isMine: true,
-        ),
-      );
+    ChatStore.addMessage(
+      widget.roomName,
+      text,
+    );
 
+    setState(() {
       _messageController.clear();
     });
 
@@ -78,17 +75,12 @@ class _RoomChatViewState extends State<RoomChatView> {
   // ============================================================
 
   void _sendReaction(String reaction) {
-    setState(() {
-      _messages.add(
-        _ChatMessage(
-          sender: 'You',
-          time: _currentTime(),
-          message: reaction,
-          avatarColor: const Color(0xFFB7D1F5),
-          isMine: true,
-        ),
-      );
-    });
+    ChatStore.addMessage(
+      widget.roomName,
+      reaction,
+    );
+
+    setState(() {});
 
     _scrollToBottom();
   }
@@ -111,6 +103,16 @@ class _RoomChatViewState extends State<RoomChatView> {
     now.period == DayPeriod.am ? 'AM' : 'PM';
 
     return '$hour:$minute $period';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    ChatStore.initializeRoomChat(
+      widget.roomName,
+      isNewRoom: widget.isNewRoom,
+    );
   }
 
   // ============================================================
@@ -222,7 +224,7 @@ class _RoomChatViewState extends State<RoomChatView> {
                   // MESSAGES
                   // =================================================
 
-                  ..._messages.map(
+                  ...ChatStore.messagesFor(widget.roomName).map(
                         (message) => Padding(
                       padding: const EdgeInsets.only(
                         bottom: 18,
@@ -468,9 +470,9 @@ class _RoomChatViewState extends State<RoomChatView> {
                     ),
                   ),
                   onTap: () {
-                    setState(() {
-                      _messages.clear();
-                    });
+                    ChatStore.clearMessages(widget.roomName);
+
+                    setState(() {});
 
                     Navigator.pop(context);
                   },
@@ -488,28 +490,14 @@ class _RoomChatViewState extends State<RoomChatView> {
 // CHAT MESSAGE MODEL
 // ============================================================================
 
-class _ChatMessage {
-  final String sender;
-  final String time;
-  final String message;
-  final Color avatarColor;
-  final bool isMine;
 
-  const _ChatMessage({
-    required this.sender,
-    required this.time,
-    required this.message,
-    required this.avatarColor,
-    required this.isMine,
-  });
-}
 
 // ============================================================================
 // MESSAGE BUBBLE
 // ============================================================================
 
 class _MessageBubble extends StatelessWidget {
-  final _ChatMessage message;
+  final ChatMessage message;
 
   const _MessageBubble({
     required this.message,
@@ -517,19 +505,18 @@ class _MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (message.isMine) {
+    if (message.isMe) {
       return Align(
         alignment: Alignment.centerRight,
         child: Column(
-          crossAxisAlignment:
-          CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  message.sender,
-                  style: const TextStyle(
+                const Text(
+                  'You',
+                  style: TextStyle(
                     fontSize: 10,
                     color: Color(0xFF68708F),
                   ),
@@ -538,7 +525,7 @@ class _MessageBubble extends StatelessWidget {
                 const SizedBox(width: 8),
 
                 Text(
-                  message.time,
+                  _currentTime(),
                   style: const TextStyle(
                     fontSize: 9,
                     color: Color(0xFF9BA0B3),
@@ -552,8 +539,7 @@ class _MessageBubble extends StatelessWidget {
             Container(
               constraints: BoxConstraints(
                 maxWidth:
-                MediaQuery.of(context).size.width *
-                    0.66,
+                MediaQuery.of(context).size.width * 0.66,
               ),
               padding: const EdgeInsets.symmetric(
                 horizontal: 14,
@@ -569,7 +555,7 @@ class _MessageBubble extends StatelessWidget {
                 ),
               ),
               child: Text(
-                message.message,
+                message.text,
                 style: const TextStyle(
                   fontSize: 12,
                   height: 1.35,
@@ -590,7 +576,7 @@ class _MessageBubble extends StatelessWidget {
           width: 38,
           height: 38,
           decoration: BoxDecoration(
-            color: message.avatarColor,
+            color: const Color(0xFFB7D1F5),
             shape: BoxShape.circle,
             border: Border.all(
               color: Colors.white,
@@ -608,14 +594,13 @@ class _MessageBubble extends StatelessWidget {
 
         Flexible(
           child: Column(
-            crossAxisAlignment:
-            CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Text(
-                    message.sender,
-                    style: const TextStyle(
+                  const Text(
+                    'User',
+                    style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF344170),
@@ -625,7 +610,7 @@ class _MessageBubble extends StatelessWidget {
                   const SizedBox(width: 8),
 
                   Text(
-                    message.time,
+                    _currentTime(),
                     style: const TextStyle(
                       fontSize: 9,
                       color: Color(0xFF9BA0B3),
@@ -639,8 +624,7 @@ class _MessageBubble extends StatelessWidget {
               Container(
                 constraints: BoxConstraints(
                   maxWidth:
-                  MediaQuery.of(context).size.width *
-                      0.67,
+                  MediaQuery.of(context).size.width * 0.67,
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 13,
@@ -648,8 +632,7 @@ class _MessageBubble extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius:
-                  const BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(4),
                     topRight: Radius.circular(15),
                     bottomLeft: Radius.circular(15),
@@ -660,7 +643,7 @@ class _MessageBubble extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  message.message,
+                  message.text,
                   style: const TextStyle(
                     fontSize: 12,
                     height: 1.35,
@@ -673,5 +656,21 @@ class _MessageBubble extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _currentTime() {
+    final now = TimeOfDay.now();
+
+    final hour = now.hourOfPeriod == 0
+        ? 12
+        : now.hourOfPeriod;
+
+    final minute =
+    now.minute.toString().padLeft(2, '0');
+
+    final period =
+    now.period == DayPeriod.am ? 'AM' : 'PM';
+
+    return '$hour:$minute $period';
   }
 }

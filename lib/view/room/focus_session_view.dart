@@ -726,6 +726,9 @@ class _FocusSessionViewState extends State<FocusSessionView> {
                         MaterialPageRoute(
                           builder: (_) => RoomChatView(
                             roomName: widget.roomName,
+
+                            // true  = Create Room → empty chat
+                            // false = Join Room   → existing messages
                             isNewRoom: widget.isNewRoom,
                           ),
                         ),

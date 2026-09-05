@@ -39,10 +39,6 @@ class RoomDetailsView extends StatelessWidget {
               children: [
                 const SizedBox(height: 12),
 
-                // =================================================
-                // HANDLE
-                // =================================================
-
                 Container(
                   width: 45,
                   height: 5,
@@ -53,10 +49,6 @@ class RoomDetailsView extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 22),
-
-                // =================================================
-                // HEADER
-                // =================================================
 
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -89,10 +81,6 @@ class RoomDetailsView extends StatelessWidget {
                   ),
                 ),
 
-                // =================================================
-                // CONTENT
-                // =================================================
-
                 Expanded(
                   child: Center(
                     child: Padding(
@@ -103,12 +91,12 @@ class RoomDetailsView extends StatelessWidget {
                         mainAxisAlignment:
                         MainAxisAlignment.center,
                         children: [
-                          // PEOPLE ICON
                           Container(
                             width: 72,
                             height: 72,
                             decoration: BoxDecoration(
-                              color: AppColors.primary.withOpacity(0.08),
+                              color:
+                              AppColors.primary.withOpacity(0.08),
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -120,7 +108,6 @@ class RoomDetailsView extends StatelessWidget {
 
                           const SizedBox(height: 18),
 
-                          // TITLE
                           const Text(
                             'You are the only one here',
                             textAlign: TextAlign.center,
@@ -133,7 +120,6 @@ class RoomDetailsView extends StatelessWidget {
 
                           const SizedBox(height: 7),
 
-                          // SUBTITLE
                           const Text(
                             'Invite others to join your study room.',
                             textAlign: TextAlign.center,
@@ -315,7 +301,8 @@ class RoomDetailsView extends StatelessWidget {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.08),
+                              color:
+                              Colors.black.withOpacity(0.08),
                               blurRadius: 8,
                             ),
                           ],
@@ -381,7 +368,8 @@ class RoomDetailsView extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.08),
+                          color:
+                          Colors.black.withOpacity(0.08),
                           blurRadius: 18,
                           offset: const Offset(0, 5),
                         ),
@@ -396,11 +384,6 @@ class RoomDetailsView extends StatelessWidget {
                         // =================================================
 
                         if (isCreator)
-
-                        // =================================================
-                        // CREATOR PEOPLE CARD
-                        // =================================================
-
                           GestureDetector(
                             onTap: () {
                               _showPeopleBottomSheet(context);
@@ -408,21 +391,23 @@ class RoomDetailsView extends StatelessWidget {
                             child: Container(
                               width: double.infinity,
                               height: 84,
-                              padding: const EdgeInsets.symmetric(
+                              padding:
+                              const EdgeInsets.symmetric(
                                 horizontal: 14,
                                 vertical: 11,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFFAFAFE),
+                                color:
+                                const Color(0xFFFAFAFE),
                                 borderRadius:
                                 BorderRadius.circular(14),
                                 border: Border.all(
-                                  color: const Color(0xFFE5E7F2),
+                                  color:
+                                  const Color(0xFFE5E7F2),
                                 ),
                               ),
                               child: Row(
                                 children: [
-                                  // LEFT SIDE
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -452,9 +437,11 @@ class RoomDetailsView extends StatelessWidget {
                                               const BoxDecoration(
                                                 color:
                                                 Color(0xFFD3B7E9),
-                                                shape: BoxShape.circle,
+                                                shape:
+                                                BoxShape.circle,
                                               ),
-                                              child: const Icon(
+                                              child:
+                                              const Icon(
                                                 Icons.person,
                                                 color: Colors.white,
                                                 size: 16,
@@ -479,7 +466,6 @@ class RoomDetailsView extends StatelessWidget {
                                     ),
                                   ),
 
-                                  // RIGHT TEXT
                                   const Flexible(
                                     child: Text(
                                       'You are the only one here',
@@ -497,7 +483,6 @@ class RoomDetailsView extends StatelessWidget {
 
                                   const SizedBox(width: 5),
 
-                                  // ARROW
                                   const Icon(
                                     Icons.chevron_right_rounded,
                                     size: 20,
@@ -507,29 +492,25 @@ class RoomDetailsView extends StatelessWidget {
                               ),
                             ),
                           )
-
                         else
-
-                        // =================================================
-                        // JOIN ROOM PEOPLE CARD
-                        // =================================================
-
                           Container(
                             height: 70,
-                            padding: const EdgeInsets.symmetric(
+                            padding:
+                            const EdgeInsets.symmetric(
                               horizontal: 14,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFAFAFE),
+                              color:
+                              const Color(0xFFFAFAFE),
                               borderRadius:
                               BorderRadius.circular(14),
                               border: Border.all(
-                                color: const Color(0xFFE5E7F2),
+                                color:
+                                const Color(0xFFE5E7F2),
                               ),
                             ),
                             child: Row(
                               children: [
-                                // COUNT
                                 Column(
                                   mainAxisAlignment:
                                   MainAxisAlignment.center,
@@ -562,7 +543,6 @@ class RoomDetailsView extends StatelessWidget {
 
                                 const Spacer(),
 
-                                // AVATARS
                                 SizedBox(
                                   width: 115,
                                   height: 40,
@@ -603,7 +583,6 @@ class RoomDetailsView extends StatelessWidget {
 
                                 const SizedBox(width: 2),
 
-                                // ARROW
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -616,7 +595,8 @@ class RoomDetailsView extends StatelessWidget {
                                   },
                                   child: const Icon(
                                     Icons.chevron_right_rounded,
-                                    color: AppColors.primary,
+                                    color:
+                                    AppColors.primary,
                                     size: 22,
                                   ),
                                 ),
@@ -626,10 +606,6 @@ class RoomDetailsView extends StatelessWidget {
 
                         const SizedBox(height: 17),
 
-                        // =================================================
-                        // DIVIDER
-                        // =================================================
-
                         const Divider(
                           height: 1,
                           thickness: 1,
@@ -637,10 +613,6 @@ class RoomDetailsView extends StatelessWidget {
                         ),
 
                         const SizedBox(height: 19),
-
-                        // =================================================
-                        // ROOM DETAILS
-                        // =================================================
 
                         const Text(
                           'Room Details',
@@ -663,7 +635,8 @@ class RoomDetailsView extends StatelessWidget {
                         const SizedBox(height: 19),
 
                         const _DetailItem(
-                          icon: Icons.videocam_off_outlined,
+                          icon:
+                          Icons.videocam_off_outlined,
                           title: 'No Video / Audio',
                           subtitle: 'Text chat only',
                         ),
@@ -671,7 +644,8 @@ class RoomDetailsView extends StatelessWidget {
                         const SizedBox(height: 19),
 
                         _DetailItem(
-                          icon: Icons.person_outline_rounded,
+                          icon:
+                          Icons.person_outline_rounded,
                           title:
                           'Created by ${room.createdBy}',
                           subtitle: room.createdAgo,
@@ -688,6 +662,7 @@ class RoomDetailsView extends StatelessWidget {
                           height: 51,
                           child: ElevatedButton(
                             onPressed: () {
+                              // Set current room
                               TaskStore.startNewRoom(
                                 room.name,
                               );
@@ -706,19 +681,29 @@ class RoomDetailsView extends StatelessWidget {
                                   return SetGoalView(
                                     roomName: room.name,
                                     category: room.category,
+
+                                    // IMPORTANT
+                                    // Creator = new room
+                                    // Joined room = existing room
+                                    isNewRoom: isCreator,
                                   );
                                 },
                               );
                             },
-                            style: ElevatedButton.styleFrom(
+                            style:
+                            ElevatedButton.styleFrom(
                               backgroundColor:
                               AppColors.primary,
-                              foregroundColor: Colors.white,
+                              foregroundColor:
+                              Colors.white,
                               elevation: 0,
                               padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
+                              shape:
+                              RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.circular(13),
+                                BorderRadius.circular(
+                                  13,
+                                ),
                               ),
                             ),
                             child: Text(
@@ -727,7 +712,8 @@ class RoomDetailsView extends StatelessWidget {
                                   : 'Join Room',
                               style: const TextStyle(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w700,
+                                fontWeight:
+                                FontWeight.w700,
                               ),
                             ),
                           ),

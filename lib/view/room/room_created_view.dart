@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_side/theme/app_theme.dart';
-import 'package:study_side/model/study_room.dart';
-import 'package:study_side/view/room/room_details_view.dart';
+import 'package:study_side/model/task_store.dart';
+import 'package:study_side/view/room/focus_session_view.dart';
 
 class RoomCreatedView extends StatelessWidget {
   final String roomName;
@@ -72,7 +72,6 @@ class RoomCreatedView extends StatelessWidget {
               Container(
                 width: 118,
                 height: 118,
-
                 decoration: BoxDecoration(
                   color: const Color(0xFFF1F0FF),
                   shape: BoxShape.circle,
@@ -200,8 +199,7 @@ class RoomCreatedView extends StatelessWidget {
                     // Participants
                     _buildInfoRow(
                       icon: Icons.groups_rounded,
-                      value:
-                      'Max Participants: $maxParticipants',
+                      value: 'Max Participants: $maxParticipants',
                     ),
 
                     const SizedBox(height: 11),
@@ -221,7 +219,7 @@ class RoomCreatedView extends StatelessWidget {
               const SizedBox(height: 12),
 
               // ==================================================
-              // VIEW ROOM BUTTON
+              // ENTER ROOM BUTTON
               // ==================================================
 
               SizedBox(
@@ -230,25 +228,30 @@ class RoomCreatedView extends StatelessWidget {
 
                 child: ElevatedButton(
                   onPressed: () {
-                    final room = StudyRoom(
-                      name: roomName,
-                      iconColor: AppColors.primary,
-                      studyingCount: 1,
-                      maxCapacity: maxParticipants,
-                      status: 'Just Created',
-                      statusColor: AppColors.success,
-                      category: category,
-                      description: goal,
-                      createdBy: 'You',
-                      createdAgo: 'Just now',
-                    );
+                    // --------------------------------------------
+                    // Start this room
+                    // --------------------------------------------
 
-                    Navigator.push(
+                    TaskStore.startNewRoom(roomName);
+
+                    // Save the goal as the current task
+                    TaskStore.setTask(goal);
+
+                    // --------------------------------------------
+                    // Enter the room directly
+                    // --------------------------------------------
+
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => RoomDetailsView(
-                          room: room,
-                          isCreator: true,
+                        builder: (_) => FocusSessionView(
+                          roomName: roomName,
+                          category: category,
+                          goal: goal,
+                          durationMinutes: duration,
+
+                          // This is the creator/new room.
+                          isNewRoom: true,
                         ),
                       ),
                     );
@@ -264,12 +267,24 @@ class RoomCreatedView extends StatelessWidget {
                     ),
                   ),
 
-                  child: const Text(
-                    'View Room',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        size: 18,
+                      ),
+
+                      SizedBox(width: 7),
+
+                      Text(
+                        'Enter Room',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
