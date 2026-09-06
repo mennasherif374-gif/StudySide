@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "585899141002",
+    "project_id": "study-side-d555e",
+    "storage_bucket": "study-side-d555e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585899141002:android:6bd9645a6c907319264a73",
+        "android_client_info": {
+          "package_name": "com.example.study_side"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585899141002-lvo9son3uuonkq4b0nc324ibd6vadknp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbeAh7rdVUlRVL0zJQmYHqiQt-Sn1sz_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585899141002-lvo9son3uuonkq4b0nc324ibd6vadknp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "585899141002-lkq974idfta3er89qmt4a13nfsqt99m2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.studySide"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
