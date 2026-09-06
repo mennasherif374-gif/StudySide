@@ -125,6 +125,7 @@ class TaskStore  {
     );
 
     currentRoomTasks.add(newTask);
+    _notify();
 
     return newTask;
   }
@@ -192,6 +193,7 @@ class TaskStore  {
     if (_currentTaskByRoom[currentRoom!] == oldTitle) {
       _currentTaskByRoom[currentRoom!] = cleanTitle;
     }
+    _notify();
 
     return true;
   }
@@ -266,6 +268,7 @@ class TaskStore  {
         currentTask == deletedTitle) {
       _currentTaskByRoom[currentRoom!] = null;
     }
+    _notify();
   }
 
   // ==========================================================

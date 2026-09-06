@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:study_side/services/firestore_services.dart';
 import 'package:study_side/theme/app_theme.dart';
 import 'package:study_side/view/room/room_chat_view.dart';
 import 'package:study_side/view/room/my_tasks_view.dart';
@@ -51,7 +53,8 @@ class _FocusSessionViewState extends State<FocusSessionView> {
   // SESSION COMPLETE
   // ============================================================
 
-  void _openSessionComplete() {
+  Future<void> _openSessionComplete() async {
+    // Prevent saving the same session more than once.
     if (_sessionCompleted) {
       return;
     }
@@ -59,6 +62,82 @@ class _FocusSessionViewState extends State<FocusSessionView> {
     _sessionCompleted = true;
 
     timer?.cancel();
+
+    // ==========================================================
+    // SAVE SESSION TO FIREBASE
+    // ==========================================================
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      debugPrint(
+        '========== NO LOGGED IN USER ==========',
+      );
+    } else {
+      try {
+        debugPrint(
+          '========== SAVING SESSION ==========',
+        );
+
+        debugPrint(
+          'UID: ${user.uid}',
+        );
+
+        debugPrint(
+          'Room: ${widget.roomName}',
+        );
+
+        debugPrint(
+          'Category: ${widget.category}',
+        );
+
+        debugPrint(
+          'Goal: ${widget.goal}',
+        );
+
+        debugPrint(
+          'Duration: ${widget.durationMinutes}',
+        );
+
+        await FirestoreService().addStudySession(
+          uid: user.uid,
+          date: DateTime.now(),
+          duration: widget.durationMinutes,
+          type: 'focus',
+          category: widget.category,
+        );
+
+        debugPrint(
+          '========== SESSION SAVED SUCCESSFULLY ==========',
+        );
+      } catch (e, stackTrace) {
+        debugPrint(
+          '========== ERROR SAVING SESSION ==========',
+        );
+
+        debugPrint(
+          'ERROR: $e',
+        );
+
+        debugPrint(
+          'STACK TRACE: $stackTrace',
+        );
+      }
+    }
+
+    // ==========================================================
+    // COMPLETE TASK
+    // ==========================================================
+
+    TaskStore.completeTask();
+
+    // ==========================================================
+    // OPEN SESSION COMPLETE PAGE
+    // ==========================================================
+
+    if (!mounted) {
+      return;
+    }
 
     Navigator.pushReplacement(
       context,
@@ -88,7 +167,9 @@ class _FocusSessionViewState extends State<FocusSessionView> {
     timer = Timer.periodic(
       const Duration(seconds: 1),
           (_) {
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
 
         if (isPaused) {
           return;
@@ -783,7 +864,9 @@ class _FocusSessionViewState extends State<FocusSessionView> {
                         ),
                       );
 
-                      if (!mounted) return;
+                      if (!mounted) {
+                        return;
+                      }
 
                       setState(() {});
                     },

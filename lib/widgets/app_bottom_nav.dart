@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_side/theme/app_theme.dart';
+import 'package:study_side/view/Profile/profile_view.dart';
+import 'package:study_side/view/Progress/progress_view.dart';
 import 'package:study_side/view/home_view.dart';
 import 'package:study_side/view/study_rooms_view.dart';
 import 'package:study_side/view/placeholder_view.dart';
@@ -32,13 +34,13 @@ class AppBottomNav extends StatelessWidget {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const PlaceholderView(title: 'Progress')),
+          MaterialPageRoute(builder: (context) => const  ProgressView()),
         );
         break;
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const PlaceholderView(title: 'Profile')),
+          MaterialPageRoute(builder: (context) => const  ProfileView()),
         );
         break;
     }
